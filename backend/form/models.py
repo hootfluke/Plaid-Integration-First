@@ -5,7 +5,7 @@ MAX_FORM_NAME_LENGTH = 128
 
 #form model, id and name
 class User(models.Model):
-    email = models.EmailField(max_length=255, null=False)
+    email = models.EmailField(max_length=255, null=False, default="")
     password = models.CharField(max_length=50)
     is_logged_in = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_201_CREATED
 from .models import User
-from .serializers import RegisterUserSerializer, UserLoginSerializer, UserLogoutSerializer, TokenExchangeSerializer, GetTransactionsSerializer, GetAccountSerializer, TransactionUpdateSerializer
+from .serializers import RegisterUserSerializer, UserLoginSerializer, UserLogoutSerializer, TokenExchangeSerializer, GetTransactionSerializer, GetAccountSerializer, TransactionUpdateSerializer
 
 
 class RegisterUser(generics.ListCreateAPIView):
@@ -11,7 +11,7 @@ class RegisterUser(generics.ListCreateAPIView):
     serializer_class = RegisterUserSerializer
 
 
-class Login(generics.GenerateAPIView):
+class Login(generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserLoginSerializer
 
@@ -22,7 +22,7 @@ class Login(generics.GenerateAPIView):
         return Response(serializer_class.errors, status=HTTP_400_BAD_REQUEST)
 
 
-class Logout(generics.GenerateAPIView):
+class Logout(generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserLogoutSerializer
 
@@ -33,7 +33,7 @@ class Logout(generics.GenerateAPIView):
         return Response(serializer_class.errors, status=HTTP_400_BAD_REQUEST)
     
 
-class TokenExchange(generics.GenerateAPIView):
+class TokenExchange(generics.GenericAPIView):
     serializer_class = TokenExchangeSerializer
 
     def get(self, request):
@@ -43,17 +43,17 @@ class TokenExchange(generics.GenerateAPIView):
         return Response(serializer_class.errors, status=HTTP_400_BAD_REQUEST)
     
 
-class GetTransactions(generics.GenerateAPIView):
-    serializer_class = GetTransactionsSerializer
+class GetTransactions(generics.GenericAPIView):
+    serializer_class = GetTransactionSerializer
 
     def get(self, request):
-        serializer_class = GetTransactionsSerializer(data=request.data)
+        serializer_class = GetTransactionSerializer(data=request.data)
         if serializer_class.is_valid(raise_exception=True):
             return Response(serializer_class.data, status=HTTP_200_OK)
         return Response(serializer_class.errors, status=HTTP_400_BAD_REQUEST)
     
 
-class GetAccounts(generics.GenerateAPIView):
+class GetAccounts(generics.GenericAPIView):
     serializer_class = GetAccountSerializer
 
     def get(self, request):
@@ -63,7 +63,7 @@ class GetAccounts(generics.GenerateAPIView):
         return Response(serializer_class.errors, status=HTTP_400_BAD_REQUEST)
 
 
-class TransactionUpdate(generics.GenerateAPIView):
+class TransactionUpdate(generics.GenericAPIView):
     serializer_class = TransactionUpdateSerializer
 
     def post(self, request):

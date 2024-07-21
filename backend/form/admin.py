@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Form
+from .models import User
 
-class FormAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id')
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('email', 'password')
 
 # Register your models here.
 
-admin.site.register(Form, FormAdmin)
+admin.site.register(User, UserAdmin)
