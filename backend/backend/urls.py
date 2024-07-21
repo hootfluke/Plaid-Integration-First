@@ -15,14 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
 from form import views
 
-router = routers.DefaultRouter()
-router.register(r'formSubs', views.FormView, 'form')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('register-user/', views.RegisterUser.as_view(), name="register"),
+    path('login/', views.Login.as_view(), name="login"),
+    path('logout/', views.Logout.as_view(), name="logout"),
+    path('token-exchange/', views.TokenExchange.as_view(), name="token-exchange"),
+    path('get-transactions/', views.GetTransactions.as_view(), name="transactions"),
+    path('get-accounts/', views.GetAccounts.as_view(), name="account"),
+    path('update-transaction/', views.TransactionUpdate.as_view(), name="update-transaction-hook"),
     ]

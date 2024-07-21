@@ -1,16 +1,18 @@
-from uuid import uuid4
-
 from django.db import models
 
 MAX_FORM_NAME_LENGTH = 128
 
 
 #form model, id and name
-class Form(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-
-    name = models.CharField(max_length=MAX_FORM_NAME_LENGTH, db_index=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class User(models.Model):
+    email = models.EmailField(max_length=255, null=False)
+    password = models.CharField(max_length=50)
+    is_logged_in = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    token = models.CharField(max_length=500, null=True, blank=True)
+    access_token = models.CharField(
+        max_length=500, null=True, blank=True)
+    
+    def __str__(self):
+        return self.email
 
