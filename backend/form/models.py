@@ -1,7 +1,5 @@
 from django.db import models
 
-MAX_FORM_NAME_LENGTH = 128
-
 
 #form model, id and name
 class User(models.Model):
